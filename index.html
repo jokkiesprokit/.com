@@ -42,7 +42,7 @@ function login(){
 async function send(){
   let text = document.getElementById("msg").value;
 
-  const res = await fetch("https://YOUR-BACKEND-URL/api/message", {
+  const res = await fetch("https://com-s690.onrender.com/api/message", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({ message: text })
