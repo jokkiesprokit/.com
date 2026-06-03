@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Sender</title>
+<style>
+body { font-family: Arial; max-width: 500px; margin: 50px auto; }
+input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; }
+#panel { display: none; }
+</style>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<div id="login">
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="panel">
+  <h3>Send Data</h3>
+  <textarea id="msg" placeholder="Type something"></textarea>
+  <button onclick="send()">Send</button>
+  <p id="status"></p>
+</div>
+
+<script>
+const PASSWORD = "1234";
+
+function login(){
+  let p = document.getElementById("password").value;
+  if(p === PASSWORD){
+    document.getElementById("login").style.display = "none";
+    document.getElementById("panel").style.display = "block";
+  } else {
+    alert("Wrong password");
+  }
+}
+
+async function send(){
+  let text = document.getElementById("msg").value;
+
+  const res = await fetch("https://YOUR-BACKEND-URL/api/message", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ message: text })
+  });
+
+  const data = await res.json();
+  document.getElementById("status").innerText = data.status;
+}
+</script>
+
+</body>
+</html>
